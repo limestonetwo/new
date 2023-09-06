@@ -22,12 +22,12 @@ task:
        - git config --global user.email "darkniuslightness@gmail.com"
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
-       - rm -rf ~/ccache
-       - mkdir -p ~/ccache
-       - rclone copy 298:RRQN/ccache.tar.gz ~/ -P
-       - cd ~/
-       - time tar xf ccache.tar.gz
-       - cd ~/
+    #   - rm -rf ~/ccache
+    #   - mkdir -p ~/ccache
+     #  - rclone copy 298:RRQN/ccache.tar.gz ~/ -P
+      # - cd ~/
+      # - time tar xf ccache.tar.gz
+       #- cd ~/
   
   Storage-Checker_background_script:
       - df -h
@@ -37,20 +37,15 @@ task:
   
   Sync_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source" 
-      - mkdir -p ~/rom
-      - cd ~/rom
-      - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b rr -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b rr-citrus .repo/local_manifests
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - ./sync.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
-  Build_script:
-      - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
+ # Build_script:
+  #    - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+ #     - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
  #     - ./collect.sh
-      - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
+ #     - ./final.sh
+  #    - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
