@@ -12,8 +12,8 @@ cd ~/
 mkdir -p ~/rom
 cd ~/rom
 rm -rf * .repo
-repo init -q --no-repo-verify --depth=1 -u https://github.com/ResurrectionRemix/platform_manifest -b Q -g default,-mips,-darwin,-notdefault
-git clone https://github.com/limestonetwo/local_manifest --depth 1 -b main .repo/local_manifests
+repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b rr -g default,-mips,-darwin,-notdefault
+git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b rr-citrus .repo/local_manifests
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
 ### BUILD
@@ -26,7 +26,7 @@ export USE_CCACHE=1
 ccache -M 50G -F 0
 export BUILD_USERNAME="darknius"
 export BUILD_HOSTNAME="darx-labs"
-lunch rr_finix-userdebug
+lunch rr_citrus-userdebug
 export ALLOW_MISSING_DEPENDENCIES=true
 export BUILD_BROKEN_USES_BUILD_COPY_HEADERS=true
 export BUILD_BROKEN_DUP_RULES=true
