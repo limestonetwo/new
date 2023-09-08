@@ -3,7 +3,7 @@ env:
     rcloneconfig: "ENCRYPTED[!e0000443ab1fd4f71bad01d68454cd8a10ae20846ed24f6c3693ab1a9a1f29895209fa6b42818795ef447beefcccb6e0!]"
     tokentl: "ENCRYPTED[!963ddcbb2853bfcf682883624f0c5d11f748c77aa1bf74c65e48c8a32584637ee5ee93b55a196191c1fbf5e9b63b2ff2!]"
     idtl: "ENCRYPTED[!c453376b5bb33ac159052d8b31ed785e398398e0c92f1bd66dde98959b91aadf17b75c5104bd7485b8da49f1b0fc1e54!]"
-    lunch : lunch rr_citrus-userdebug
+    lunch : lunch rr_finix-userdebug
     make: m bacon
  
 task:
@@ -41,7 +41,7 @@ task:
       - cd ~/rom
       - rm -rf * .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b rr -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b rr-citrus .repo/local_manifests
+      - git clone https://github.com/limestonetwo/local_manifest --depth 1 -b lineage .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -54,7 +54,7 @@ task:
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - rclone copy ~/rom/out/target/product/citrus/RR-*.zip 298:citrus -P
+      - rclone copy ~/rom/out/target/product/finix/RR-*.zip 298:finix -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
   #    - ./ziping.sh
