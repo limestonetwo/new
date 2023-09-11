@@ -13,8 +13,7 @@ task:
     image: inok2341/anu:latest
     cpu: 8
     memory: 32G
-  
-        
+       
   Build-Env-Setup_background_script:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
